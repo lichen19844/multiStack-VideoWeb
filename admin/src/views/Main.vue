@@ -18,10 +18,10 @@
     </el-aside>
     <el-container>
       <el-header height="">
-        multiStack-VideoWeb - 后台管理界面
+        <h3>multiStack-VideoWeb - 后台管理界面</h3>
       </el-header>
       <el-main height="">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </el-main>
     </el-container>
   </el-container>
