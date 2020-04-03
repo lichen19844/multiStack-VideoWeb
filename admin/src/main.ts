@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './plugins/element'
+import './plugins/avue'
 // 引入 vue-ele-form
 import EleForm from 'vue-ele-form'
 import router from './router'
