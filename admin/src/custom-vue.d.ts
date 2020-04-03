@@ -6,3 +6,7 @@ declare module 'vue/types/vue' {
     $http: AxiosInstance
   }
 }
+
+// declare module 'vue-ele-form' {
+//   export const install: () => any
+// }
