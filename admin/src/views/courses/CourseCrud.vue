@@ -1,6 +1,7 @@
 <template>
   <div>
-    <avue-crud 
+    <avue-crud
+      v-if="option.column"
       :data="data.data" 
       :option="option"
       @row-save="create"
@@ -18,12 +19,24 @@ export default class CourseList extends Vue {
   data: object = {};
 
   option: object = {
-    title: '课程管理',
-    column: [
-      // { label: 'ID', prop: '_id' },
-      { label: '课程名称', prop: 'name' },
-      { label: '课程封面图', prop: 'cover' }
-    ]
+    // title: '课程管理',
+    // column: [
+    //   // { label: 'ID', prop: '_id' },
+    //   { label: '课程名称', prop: 'name' },
+    //   { label: '课程封面图', prop: 'cover' }
+    // ]
+  }
+
+  async fetchOption() {
+    const res = await this.$http.get("courses/option");
+    this.option = res.data;
+    console.log("courselist option is ", this.option);
+  }
+
+  async fetch() {
+    const res = await this.$http.get("courses");
+    this.data = res.data;
+    console.log("courselist data is ", this.data);
   }
 
   async create (row: any, done: any) {
@@ -87,13 +100,8 @@ export default class CourseList extends Vue {
   //   })
   // }
 
-  async fetch() {
-    const res = await this.$http.get("courses");
-    this.data = res.data;
-    console.log("courselist data is ", this.data);
-  }
-
   created() {
+    this.fetchOption();
     this.fetch();
   }
 }
