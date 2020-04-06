@@ -15,7 +15,8 @@ export class CoursesController {
   constructor(
     @InjectModel(Course) private readonly model: ReturnModelType<typeof Course>
   ) { }
-
+  
+  // 对应前端this.$http.get("courses/option")
   @Get('option')
   async option() {
     return {

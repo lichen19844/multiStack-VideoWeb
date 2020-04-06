@@ -14,7 +14,7 @@ import { Vue, Component, Prop } from "vue-property-decorator"
 
 @Component({})
 export default class CourseEdit extends Vue {
-  // 接收总路由里传来的id
+  // 接收总路由里传来的id，并使用’definite assignment assertion类型断言!:‘
   // @Prop(String) id: string | undefined
   @Prop(String) id!: string
 

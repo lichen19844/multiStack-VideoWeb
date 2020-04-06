@@ -12,10 +12,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({})
-export default class CourseList extends Vue {
+
+export default class ResourceCrud extends Vue {
+  @Prop(String) resource !: string
+
   data: object = {};
 
   option: object = {
@@ -28,19 +31,19 @@ export default class CourseList extends Vue {
   }
 
   async fetchOption() {
-    const res = await this.$http.get("courses/option");
+    const res = await this.$http.get(`${this.resource}/option`);
     this.option = res.data;
     console.log("courselist option is ", this.option);
   }
 
   async fetch() {
-    const res = await this.$http.get("courses");
+    const res = await this.$http.get(`${this.resource}`);
     this.data = res.data;
     console.log("courselist data is ", this.data);
   }
 
   async create (row: any, done: any) {
-    await this.$http.post('courses', row)
+    await this.$http.post(`${this.resource}`, row)
     console.log('avue row is ', row)
     this.$message.success('创建成功')
     this.fetch()
@@ -51,7 +54,7 @@ export default class CourseList extends Vue {
     console.log('avue row is ', row)
     const data = JSON.parse(JSON.stringify(row))
     delete data.$index
-    await this.$http.put(`courses/${row._id}`, data)
+    await this.$http.put(`${this.resource}/${row._id}`, data)
     this.$message.success('更新成功')
     this.fetch()
     done()
@@ -61,7 +64,7 @@ export default class CourseList extends Vue {
   async remove(row: any) {
     try {
       // $confirm 是element提供的
-      await this.$confirm(`是否确定要删除分类？"${row.name}"`, "提示", {
+      await this.$confirm(`是否确定要删除分类？${row.name}`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -73,7 +76,7 @@ export default class CourseList extends Vue {
       });
       return;
     }
-    await this.$http.delete(`courses/${row._id}`);
+    await this.$http.delete(`${this.resource}/${row._id}`);
     this.$message.success("删除成功!");
     this.fetch();
   }
