@@ -33,8 +33,8 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({})
 export default class CourseList extends Vue {
-  data: object = {};
-  fields: object = {
+  data: any = {};
+  fields: any = {
     _id: { label: "ID" },
     name: { label: "课程名称" },
     cover: { label: "课程封面图" }

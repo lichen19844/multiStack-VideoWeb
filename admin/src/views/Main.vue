@@ -32,7 +32,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 @Component({})
 export default class Main extends Vue{
-  menu: object = {
+  menu: any = {
     items: [
       {
         title: '内容管理',

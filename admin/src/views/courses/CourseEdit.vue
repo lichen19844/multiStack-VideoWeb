@@ -18,9 +18,9 @@ export default class CourseEdit extends Vue {
   // @Prop(String) id: string | undefined
   @Prop(String) id!: string
 
-  data: object = {}
+  data: any = {}
 
-  fields: object = {
+  fields: any = {
     name: {label: '课程名称', type: 'input'},
     cover: {label: '课程封面图', type: 'input'}
   }
@@ -29,7 +29,7 @@ export default class CourseEdit extends Vue {
     return !this.id
   }
 
-  async handleSubmit (data: object) {
+  async handleSubmit (data: any) {
     console.log('handleSubmit data is', data)
     const url = this.isNew ? `courses` : `courses/${this.id}`
     const method = this.isNew ? `post` : `put`

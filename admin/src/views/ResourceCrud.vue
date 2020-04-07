@@ -2,11 +2,13 @@
   <div>
     <avue-crud
       v-if="option.column"
-      :data="data.data" 
+      :data="resData.data"
       :option="option"
       @row-save="create"
       @row-update="update"
       @row-del="remove"
+      :page.sync="page"
+      @on-load="changePage"
     ></avue-crud>
   </div>
 </template>
@@ -15,20 +17,28 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({})
-
 export default class ResourceCrud extends Vue {
-  @Prop(String) resource !: string
+  @Prop(String) resource!: string;
 
-  data: object = {};
-
-  option: object = {
+  // 一些初始data
+  resData: any = {};
+  option: any = {
     // title: '课程管理',
     // column: [
     //   // { label: 'ID', prop: '_id' },
     //   { label: '课程名称', prop: 'name' },
     //   { label: '课程封面图', prop: 'cover' }
     // ]
-  }
+  };
+  page: any = {
+    // pageSize: 5,
+    // pageSizes: [2, 5, 10],
+    currentPage: 1,
+    total: 0
+  };
+  query: any = {
+    limit: 5
+  };
 
   async fetchOption() {
     const res = await this.$http.get(`${this.resource}/option`);
@@ -36,28 +46,45 @@ export default class ResourceCrud extends Vue {
     console.log("courselist option is ", this.option);
   }
 
+  async changePage({pageSize, currentPage}: any) {
+  // async changePage(page: any) {
+    // console.log(page)
+    // this.query.page = page.currentPage;
+    // this.query.limit = page.pageSize;
+    this.query.page = currentPage;
+    this.query.limit = pageSize;
+    // 点击分页刷新页面
+    this.fetch()
+  }
+
   async fetch() {
-    const res = await this.$http.get(`${this.resource}`);
-    this.data = res.data;
-    console.log("courselist data is ", this.data);
+    const res = await this.$http.get(`${this.resource}`, {
+      params: {
+        query: this.query
+      }
+    });
+    // this.page["total"] = res.data.total 等同于 this.page.total = res.data.total
+    this.page.total = res.data.total;
+    this.resData = res.data;
+    console.log("courselist data is ", res);
   }
 
-  async create (row: any, done: any) {
-    await this.$http.post(`${this.resource}`, row)
-    console.log('avue row is ', row)
-    this.$message.success('创建成功')
-    this.fetch()
-    done()
+  async create(row: any, done: any) {
+    await this.$http.post(`${this.resource}`, row);
+    console.log("avue row is ", row);
+    this.$message.success("创建成功");
+    this.fetch();
+    done();
   }
 
-  async update (row: any, index: any, done: any) {
-    console.log('avue row is ', row)
-    const data = JSON.parse(JSON.stringify(row))
-    delete data.$index
-    await this.$http.put(`${this.resource}/${row._id}`, data)
-    this.$message.success('更新成功')
-    this.fetch()
-    done()
+  async update(row: any, index: any, done: any) {
+    console.log("avue row is ", row);
+    const data = JSON.parse(JSON.stringify(row));
+    delete data.$index;
+    await this.$http.put(`${this.resource}/${row._id}`, data);
+    this.$message.success("更新成功");
+    this.fetch();
+    done();
   }
 
   // try catch 方法
@@ -105,7 +132,8 @@ export default class ResourceCrud extends Vue {
 
   created() {
     this.fetchOption();
-    this.fetch();
+    // 首次加载会调用on-load方法加载数据，从而触发this.fetch方法，这里就不要了
+    // this.fetch();
   }
 }
 </script>
