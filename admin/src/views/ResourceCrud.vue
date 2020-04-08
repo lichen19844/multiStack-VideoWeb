@@ -9,6 +9,7 @@
       @row-del="remove"
       :page.sync="page"
       @on-load="changePage"
+      @sort-change="changeSort"
     ></avue-crud>
   </div>
 </template>
@@ -37,16 +38,17 @@ export default class ResourceCrud extends Vue {
     total: 0
   };
   query: any = {
-    limit: 5
+    limit: 5,
+    // sort: {_id: -1}
   };
 
-  async fetchOption() {
+  async fetchOption () {
     const res = await this.$http.get(`${this.resource}/option`);
     this.option = res.data;
     console.log("courselist option is ", this.option);
   }
 
-  async changePage({pageSize, currentPage}: any) {
+  async changePage ({pageSize, currentPage}: any) {
   // async changePage(page: any) {
     // console.log(page)
     // this.query.page = page.currentPage;
@@ -57,7 +59,20 @@ export default class ResourceCrud extends Vue {
     this.fetch()
   }
 
-  async fetch() {
+  async changeSort ({prop, order}) {
+  // async changeSort (params) {
+    // console.log('params is ', params)
+    if (!order) { // !order等同于order = null
+      this.query.sort = null
+    } else {
+      this.query.sort = {
+        [prop]: order == 'ascending' ? 1: -1
+      }
+    }
+    this.fetch()
+  }
+
+  async fetch () {
     const res = await this.$http.get(`${this.resource}`, {
       params: {
         query: this.query

@@ -23,7 +23,7 @@ export class CoursesController {
       title: '课程管理',
       column: [
         // { label: 'ID', prop: '_id' },
-        { label: '课程名称', prop: 'name' },
+        { label: '课程名称', prop: 'name', sortable: true },
         { label: '课程封面图', prop: 'cover' }
       ]
     }
