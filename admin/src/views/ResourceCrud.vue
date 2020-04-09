@@ -10,6 +10,7 @@
       :page.sync="page"
       @on-load="changePage"
       @sort-change="changeSort"
+      @search-change="search"
     ></avue-crud>
   </div>
 </template>
@@ -59,16 +60,31 @@ export default class ResourceCrud extends Vue {
     this.fetch()
   }
 
-  async changeSort ({prop, order}) {
+  async changeSort ({prop, order}: any) {
   // async changeSort (params) {
-    // console.log('params is ', params)
-    if (!order) { // !order等同于order = null
+  //   console.log('params is ', params)
+    if (!order) { // !order等同于 order = null
       this.query.sort = null
     } else {
       this.query.sort = {
         [prop]: order == 'ascending' ? 1: -1
       }
     }
+    this.fetch()
+  }
+
+  async search (params: any, done: any) {
+    console.log('params is ', params) // {name: "xxx"}
+    for (let k in params) {
+      // const field = this.option.column.find(v => v.prop === k && v.regex)
+      const field = this.option.column.find((v: any) => v.prop === k)
+      if (field.regex) {
+        params[k] = {$regex: params[k]}
+      }
+    }
+    // params.name = {$regex: params.name}
+    this.query.where = params
+    done()
     this.fetch()
   }
 
@@ -84,7 +100,7 @@ export default class ResourceCrud extends Vue {
     console.log("courselist data is ", res);
   }
 
-  async create(row: any, done: any) {
+  async create (row: any, done: any) {
     await this.$http.post(`${this.resource}`, row);
     console.log("avue row is ", row);
     this.$message.success("创建成功");
@@ -92,7 +108,7 @@ export default class ResourceCrud extends Vue {
     done();
   }
 
-  async update(row: any, index: any, done: any) {
+  async update (row: any, index: any, done: any) {
     console.log("avue row is ", row);
     const data = JSON.parse(JSON.stringify(row));
     delete data.$index;
@@ -103,7 +119,7 @@ export default class ResourceCrud extends Vue {
   }
 
   // try catch 方法
-  async remove(row: any) {
+  async remove (row: any) {
     try {
       // $confirm 是element提供的
       await this.$confirm(`是否确定要删除分类？${row.name}`, "提示", {
@@ -118,7 +134,7 @@ export default class ResourceCrud extends Vue {
       });
       return;
     }
-    await this.$http.delete(`${this.resource}/${row._id}`);
+    await this.$http.delete (`${this.resource}/${row._id}`);
     this.$message.success("删除成功!");
     this.fetch();
   }
@@ -145,7 +161,7 @@ export default class ResourceCrud extends Vue {
   //   })
   // }
 
-  created() {
+  created () {
     this.fetchOption();
     // 首次加载会调用on-load方法加载数据，从而触发this.fetch方法，这里就不要了
     // this.fetch();
