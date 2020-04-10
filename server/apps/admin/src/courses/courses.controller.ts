@@ -24,8 +24,8 @@ export class CoursesController {
       title: '课程管理',
       column: [
         // { label: 'ID', prop: '_id' },
-        { label: '课程名称', prop: 'name', sortable: true, search: true, regex: true },
-        { label: '课程封面图', prop: 'cover' }
+        { label: '课程名称', prop: 'name', sortable: true, search: true, regex: true, row: true, span: 8 },
+        { label: '课程封面图', prop: 'cover', type: 'upload', listType: 'picture-img', row: true, span: 12 }
       ]
     }
   }
