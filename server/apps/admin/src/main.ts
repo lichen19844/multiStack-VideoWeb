@@ -1,11 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // 明确使用框架为express
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   // 解决跨域
   app.enableCors()
+  // 启用静态文件托管功能，指定目录
+  app.useStaticAssets('./uploads', {
+    // 静态接口前缀
+    prefix: '/uploads'
+  })
 
   const options = new DocumentBuilder()
     .setTitle('multiStack-VideoWeb-后台管理API')

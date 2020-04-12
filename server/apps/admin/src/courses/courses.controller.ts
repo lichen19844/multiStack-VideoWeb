@@ -25,7 +25,7 @@ export class CoursesController {
       column: [
         // { label: 'ID', prop: '_id' },
         { label: '课程名称', prop: 'name', sortable: true, search: true, regex: true, row: true, span: 8 },
-        { label: '课程封面图', prop: 'cover', type: 'upload', listType: 'picture-img', row: true, span: 12 }
+        { label: '课程封面图', prop: 'cover', type: 'upload', listType: 'picture-img', width: 120, row: true, span: 12, action: 'upload' }
       ]
     }
   }
