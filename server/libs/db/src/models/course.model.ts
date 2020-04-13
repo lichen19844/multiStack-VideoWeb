@@ -17,6 +17,7 @@ export class Course {
   @prop()
   cover: string
 
-  @arrayProp({itemsRef: 'Episode', example: 'episode1'})
-  episodes: Ref<Episode>[]
+  // // 课程里放很多课时（视频\音频\图片）
+  // @arrayProp({itemsRef: 'Episode', example: 'episode1'})
+  // episodes: Ref<Episode>[]
 }
