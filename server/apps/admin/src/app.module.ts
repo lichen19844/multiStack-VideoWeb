@@ -17,8 +17,8 @@ const MAO = require('multer-aliyun-oss');
       storage: MAO({
         config: {
             region: 'oss-cn-hongkong',
-            accessKeyId: 'LTAI4FvEU3mcHYkR9fT9iDk7',
-            accessKeySecret: 'rII2AXbs47gxg8ZySSzHJ3rsfmtBho',
+            accessKeyId: 'xxx',
+            accessKeySecret: 'xxx',
             bucket: 'multistack-videoweb'
         }
       })
