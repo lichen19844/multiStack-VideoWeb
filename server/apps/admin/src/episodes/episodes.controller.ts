@@ -27,7 +27,7 @@ export class EpisodesController {
     }))
     return {
       title: '课时管理',
-      translate: false,
+      // translate: false,
       column: [
         // { label: 'ID', prop: '_id' },
         { label: '所属课程', prop: 'course', row: true, type: 'select', dicData: courses },

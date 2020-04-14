@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({})
@@ -40,56 +39,57 @@ export default class ResourceCrud extends Vue {
     total: 0
   };
   query: any = {
-    limit: 5,
+    limit: 5
     // sort: {_id: -1}
   };
 
-  async fetchOption () {
+  async fetchOption() {
     const res = await this.$http.get(`${this.resource}/option`);
     this.option = res.data;
     console.log("courselist option is ", this.option);
   }
 
-  async changePage ({pageSize, currentPage}: any) {
-  // async changePage(page: any) {
+  async changePage({ pageSize, currentPage }: any) {
+    // async changePage(page: any) {
     // console.log(page)
     // this.query.page = page.currentPage;
     // this.query.limit = page.pageSize;
     this.query.page = currentPage;
     this.query.limit = pageSize;
     // 点击分页刷新页面
-    this.fetch()
+    this.fetch();
   }
 
-  async changeSort ({prop, order}: any) {
-  // async changeSort (params) {
-  //   console.log('params is ', params)
-    if (!order) { // !order等同于 order = null
-      this.query.sort = null
+  async changeSort({ prop, order }: any) {
+    // async changeSort (params) {
+    //   console.log('params is ', params)
+    if (!order) {
+      // !order等同于 order = null
+      this.query.sort = null;
     } else {
       this.query.sort = {
-        [prop]: order == 'ascending' ? 1: -1
-      }
+        [prop]: order == "ascending" ? 1 : -1
+      };
     }
-    this.fetch()
+    this.fetch();
   }
 
-  async search (params: any, done: any) {
-    console.log('params is ', params) // {name: "xxx"}
+  async search(params: any, done: any) {
+    console.log("params is ", params); // {name: "xxx"}
     for (let k in params) {
       // const field = this.option.column.find(v => v.prop === k && v.regex)
-      const field = this.option.column.find((v: any) => v.prop === k)
+      const field = this.option.column.find((v: any) => v.prop === k);
       if (field.regex) {
-        params[k] = {$regex: params[k]}
+        params[k] = { $regex: params[k] };
       }
     }
     // params.name = {$regex: params.name}
-    this.query.where = params
-    done()
-    this.fetch()
+    this.query.where = params;
+    done();
+    this.fetch();
   }
 
-  async fetch () {
+  async fetch() {
     const res = await this.$http.get(`${this.resource}`, {
       params: {
         query: this.query
@@ -98,10 +98,14 @@ export default class ResourceCrud extends Vue {
     // this.page["total"] = res.data.total 等同于 this.page.total = res.data.total
     this.page.total = res.data.total;
     this.resData = res.data;
-    console.log("courselist data is ", res);
+    console.log("courselist data is ", this.resData);
+    console.log("option is ", this.option);
+    console.log("option prop is ", this.option.column[0].prop);
+    const propvalue = `$${this.option.column[0].prop}`;
+    console.log("propvalue is ", propvalue);
   }
 
-  async create (row: any, done: any) {
+  async create(row: any, done: any) {
     await this.$http.post(`${this.resource}`, row);
     console.log("avue row is ", row);
     this.$message.success("创建成功");
@@ -109,10 +113,18 @@ export default class ResourceCrud extends Vue {
     done();
   }
 
-  async update (row: any, index: any, done: any) {
+  async update(row: any, index: any, done: any) {
     console.log("avue row is ", row);
     const data = JSON.parse(JSON.stringify(row));
-    delete data.$index;
+    const propvalue = `$${this.option.column[0].prop}`
+    for (let key in data) {
+      console.log(key)
+      delete data[(key = "$index")];
+      delete data[(key = propvalue)];
+    }
+    // delete data.$index;
+    // delete data.$course;
+    console.log("data is ", data);
     await this.$http.put(`${this.resource}/${row._id}`, data);
     this.$message.success("更新成功");
     this.fetch();
@@ -120,7 +132,7 @@ export default class ResourceCrud extends Vue {
   }
 
   // try catch 方法
-  async remove (row: any) {
+  async remove(row: any) {
     try {
       // $confirm 是element提供的
       await this.$confirm(`是否确定要删除分类？${row.name}`, "提示", {
@@ -135,7 +147,7 @@ export default class ResourceCrud extends Vue {
       });
       return;
     }
-    await this.$http.delete (`${this.resource}/${row._id}`);
+    await this.$http.delete(`${this.resource}/${row._id}`);
     this.$message.success("删除成功!");
     this.fetch();
   }
@@ -162,7 +174,7 @@ export default class ResourceCrud extends Vue {
   //   })
   // }
 
-  created () {
+  created() {
     this.fetchOption();
     // 首次加载会调用on-load方法加载数据，从而触发this.fetch方法，这里就不要了
     // this.fetch();
@@ -171,5 +183,4 @@ export default class ResourceCrud extends Vue {
 </script>
 
 <style>
-
 </style>
