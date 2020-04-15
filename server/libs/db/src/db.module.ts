@@ -15,12 +15,25 @@ const models = TypegooseModule.forFeature([
 @Global()
 @Module({
   imports: [
-    TypegooseModule.forRoot("mongodb://localhost:27017/", {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      dbName: "multiStack-VideoWeb"
+    // TypegooseModule.forRoot("mongodb://localhost:27017/", {
+    //   useNewUrlParser: true,
+    //   useFindAndModify: false,
+    //   useUnifiedTopology: true,
+    //   useCreateIndex: true,
+    //   dbName: "multiStack-VideoWeb"
+    // }),
+    // 使用异步
+    TypegooseModule.forRootAsync({
+      useFactory() {
+        return {
+          uri: "mongodb://localhost:27017/",
+          useNewUrlParser: true,
+          useFindAndModify: false,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+          dbName: process.env.DBNAME_VIDEOWEB
+        }
+      }
     }),
     models,
   ],

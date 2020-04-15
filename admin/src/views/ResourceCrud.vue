@@ -20,7 +20,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({})
 export default class ResourceCrud extends Vue {
-  @Prop(String) resource!: string;
+  @Prop(String) resource !: string;
 
   // 一些初始data
   resData: any = {};
@@ -176,7 +176,7 @@ export default class ResourceCrud extends Vue {
 
   created() {
     this.fetchOption();
-    // 首次加载会调用on-load方法加载数据，从而触发this.fetch方法，这里就不要了
+    // 首次加载avue会调用on-load方法加载数据，从而触发this.fetch方法，这里就不要了
     // this.fetch();
   }
 }
