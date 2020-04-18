@@ -1,6 +1,6 @@
 <template>
   <div>
-    comments list
+    热门评论
   </div>
 </template>
 

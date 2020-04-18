@@ -3,9 +3,9 @@
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item
-          :to="item.link"
           v-for="item in items"
           :key="item.text"
+          :to="item.link"
           link
         >
           <v-list-item-action>
@@ -115,6 +115,7 @@ export default {
   data: () => ({
     drawer: null,
     items: [
+      { icon: 'mdi-home', text: '首页', link: '/' },
       { icon: 'mdi-trending-up', text: '热门课程', link: '/courses' },
       { icon: 'mdi-youtube-subscription', text: '热门评论', link: '/comments' }
       // { icon: 'mdi-history', text: 'History' },

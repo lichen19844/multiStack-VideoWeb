@@ -1,6 +1,6 @@
 <template>
-  <div>
-    courses list
+  <div class="pa-3">
+    <h3>热门课程</h3>
   </div>
 </template>
 
