@@ -8,6 +8,7 @@ async function bootstrap() {
   // 解决跨域
   app.enableCors()
 
+  // web端接口文档
   const options = new DocumentBuilder()
     .setTitle('multiStack-VideoWeb-客户端管理API')
     .setDescription('供客户端界面调用的服务端API')

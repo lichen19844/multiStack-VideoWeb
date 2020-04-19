@@ -15,6 +15,7 @@ async function bootstrap() {
     prefix: '/uploads'
   })
 
+  // 管理端admin接口文档
   const options = new DocumentBuilder()
     .setTitle('multiStack-VideoWeb-后台管理API')
     .setDescription('供后台管理界面调用的服务端API')

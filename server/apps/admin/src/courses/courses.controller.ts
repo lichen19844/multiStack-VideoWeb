@@ -9,6 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
   model: Course
 })
 
+// 管理端admin接口文档
 @ApiTags('课程')
 @Controller('courses')
 export class CoursesController {
@@ -16,7 +17,7 @@ export class CoursesController {
     @InjectModel(Course) private readonly model: ReturnModelType<typeof Course>
   ) { }
   
-  // 对应前端this.$http.get("courses/option")
+  // 对应管理端的前端this.$http.get("courses/option")
   @Get('option')
   async option() {
     return {
