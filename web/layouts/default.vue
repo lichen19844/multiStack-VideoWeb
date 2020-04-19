@@ -109,9 +109,9 @@
 
 <script>
 export default {
-  props: {
-    source: String
-  },
+  // props: {
+  //   source: String
+  // },
   data: () => ({
     drawer: null,
     items: [
