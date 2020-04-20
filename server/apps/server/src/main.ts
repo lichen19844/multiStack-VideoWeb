@@ -10,8 +10,8 @@ async function bootstrap() {
 
   // web端接口文档
   const options = new DocumentBuilder()
-    .setTitle('multiStack-VideoWeb-客户端管理API')
-    .setDescription('供客户端界面调用的服务端API')
+    .setTitle('multiStack-VideoWeb-客户web端管理API')
+    .setDescription('供客户web端界面调用的服务端API')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
