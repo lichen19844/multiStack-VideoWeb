@@ -6,6 +6,7 @@ import { ModelType, ReturnModelType } from '@typegoose/typegoose/lib/types';
 import { AuthGuard } from '@nestjs/passport';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt'
 
 // // 定义DTO数据传输对象
 // export class RegisterDto {
@@ -19,6 +20,7 @@ import { LoginDto } from './dto/login.dto';
 @ApiTags('用户')
 export class AuthController {
   constructor(
+    private jwtService: JwtService,
     // @InjectModel(User) private readonly UserModel: ModelType<User>
     // @InjectModel(User) private readonly UserModel: ModelType<typeof User>
     @InjectModel(User) private readonly UserModel: ReturnModelType<typeof User>,
@@ -45,8 +47,12 @@ export class AuthController {
   @ApiOperation({ summary: '登录' })
   @UseGuards(AuthGuard('local'))
   async login(@Body() dto: LoginDto, @Req() req) {
-    return req.user
+    // return req.user
     // return dto;
+    const payload = req.user._id
+    return {
+      token: this.jwtService.sign(String(payload))
+    }
   }
 
   // 检查token，获取个人验证信息

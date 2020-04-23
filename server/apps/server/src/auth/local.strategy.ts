@@ -1,4 +1,4 @@
-// 本地策略
+// 设置本地策略
 
 import { Strategy, IStrategyOptions } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';

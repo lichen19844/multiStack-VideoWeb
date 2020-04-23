@@ -552,6 +552,14 @@
     tslib "1.11.1"
     uuid "7.0.2"
 
+"@nestjs/jwt@^7.0.0":
+  version "7.0.0"
+  resolved "http://r.cnpmjs.org/@nestjs/jwt/download/@nestjs/jwt-7.0.0.tgz#977390ea2d5f61cbf49d3da4df740311b98998db"
+  integrity sha1-l3OQ6i1fYcv0nT2k33QDEbmJmNs=
+  dependencies:
+    "@types/jsonwebtoken" "8.3.8"
+    jsonwebtoken "8.5.1"
+
 "@nestjs/passport@^7.0.0":
   version "7.0.0"
   resolved "http://r.cnpmjs.org/@nestjs/passport/download/@nestjs/passport-7.0.0.tgz#c59617779b7e5888a0c72039a6980e28fd659518"
@@ -768,6 +776,13 @@
   version "8.3.9"
   resolved "http://r.cnpmjs.org/@types/jsonwebtoken/download/@types/jsonwebtoken-8.3.9.tgz#48da9a49997e4eb046733e6878f583d7448f0594"
   integrity sha1-SNqaSZl+TrBGcz5oePWD10SPBZQ=
+  dependencies:
+    "@types/node" "*"
+
+"@types/jsonwebtoken@8.3.8":
+  version "8.3.8"
+  resolved "http://r.cnpmjs.org/@types/jsonwebtoken/download/@types/jsonwebtoken-8.3.8.tgz#b27c9156dde2049ae03e56528a53ef5a8294aa82"
+  integrity sha1-snyRVt3iBJrgPlZSilPvWoKUqoI=
   dependencies:
     "@types/node" "*"
 
@@ -4522,7 +4537,7 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsonwebtoken@^8.2.0:
+jsonwebtoken@8.5.1, jsonwebtoken@^8.2.0:
   version "8.5.1"
   resolved "http://r.cnpmjs.org/jsonwebtoken/download/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
   integrity sha1-AOceC431TCEhofJhN98igGc7zA0=
