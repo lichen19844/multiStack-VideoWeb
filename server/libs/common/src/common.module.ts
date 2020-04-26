@@ -1,7 +1,8 @@
 import { Module, Global } from '@nestjs/common';
 import { CommonService } from './common.service';
 import { ConfigModule } from '@nestjs/config';
-import { DbModule } from '@libs/db';
+// import { DbModule } from '@libs/db';
+import { DbModule } from '../../db/src';
 import { JwtModule } from '@nestjs/jwt'
 
 @Global()
@@ -20,6 +21,6 @@ import { JwtModule } from '@nestjs/jwt'
     DbModule
   ],
   providers: [CommonService],
-  exports: [CommonService, JwtModule],
+  exports: [CommonService, JwtModule, DbModule],
 })
 export class CommonModule {}

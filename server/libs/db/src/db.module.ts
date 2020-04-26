@@ -12,7 +12,7 @@ const models = TypegooseModule.forFeature([
   Episode
 ])
 
-@Global()
+// @Global()
 @Module({
   imports: [
     // TypegooseModule.forRoot("mongodb://localhost:27017/", {

@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('multiStack-VideoWeb-客户web端管理API')
     .setDescription('供客户web端界面调用的服务端API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
