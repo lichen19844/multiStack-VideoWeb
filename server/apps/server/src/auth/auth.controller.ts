@@ -67,6 +67,6 @@ export class AuthController {
   // async user(@Req() req) {
     // async user(@CurrentUser() user: DocumentType<User>) {
     async user(@CurrentUser() user: UserDocument) {
-        return user._id;
+        return {user};
   }
 }
