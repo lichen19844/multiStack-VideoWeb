@@ -26,5 +26,6 @@ export class Course {
     localField: '_id',
     foreignField: 'course'
   })
+  // 作用是代码提示，而不是给mongoose数据库用
   episodes: Ref<Episode>[]
 }

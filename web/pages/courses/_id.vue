@@ -16,6 +16,7 @@
 export default {
   // asyncData({isDiv, route, store, env, params, query, req, res, redirect, error}) {
   async asyncData({ params, $axios }) {
+    // params.id获取id数据
     const { id } = params
     const course = await $axios.$get(`courses/${id}`, {
       params: {

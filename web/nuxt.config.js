@@ -19,6 +19,7 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
+    // 以link的方式使用外部资源文件
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
