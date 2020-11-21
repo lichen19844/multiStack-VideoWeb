@@ -11,6 +11,7 @@ import axios from 'axios'
 Vue.use(EleForm)
 
 const http = axios.create({
+  // 注意3000后面没有跟/
   // baseURL: 'http://localhost:3000'
   baseURL: process.env.VUE_APP_API_URL
 })

@@ -24,7 +24,7 @@ export default class CourseEdit extends Vue {
     name: {label: '课程名称', type: 'input'},
     cover: {label: '课程封面图', type: 'input'}
   }
-
+  // 使用计算属性来区分“创建”还是“编辑”
   get isNew () {
     return !this.id
   }
